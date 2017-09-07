@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
+import Connect from './connect/template';
+
 import CommonCharts from './widget/commonCharts';
 
 class Zl extends Component {
@@ -158,4 +160,9 @@ class Zl extends Component {
   }
 }
 
-export default Zl;
+export default Connect({
+  _id: 'zl',
+  _component: Zl,
+  _headerBackUrls: '／', //头部回退按钮地址
+  _headerTitleSets: '总览', //头部标题内容
+});

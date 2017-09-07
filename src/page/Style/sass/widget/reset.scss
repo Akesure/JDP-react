@@ -73,6 +73,7 @@ em{
 body{
     background: #fff;
     min-width: 100%;
+    overflow-y: scroll;
 }
 ::-ms-clear,::-ms-reveal{
     display: none;

@@ -3,6 +3,7 @@ import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
 import CommonCharts from './widget/commonCharts';
+import Connect from './connect/template';
 
 class Xmzt extends Component {
   constructor(props, context) {
@@ -107,4 +108,9 @@ class Xmzt extends Component {
   }
 }
 
-export default Xmzt;
+export default Connect({
+  _id: 'xmzt',
+  _component: Xmzt,
+  _headerBackUrls: '／', //头部回退按钮地址
+  _headerTitleSets: '项目状态分析', //头部标题内容
+});

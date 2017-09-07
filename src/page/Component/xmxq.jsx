@@ -8,6 +8,8 @@ import echarts from 'echarts';
 // import CommonCharts from './widget/commonCharts';
 import commonStyle from './widget/commonStyle';
 
+import Connect from './connect/template';
+
 class Xmxq extends Component {
   constructor(props, context) {
     super(props);
@@ -248,6 +250,7 @@ class Xmxq extends Component {
   }
 
   componentDidMount() {
+    // console.log(this);
       var BurnoutPic = echarts.init(ReactDOM.findDOMNode(this.refs.CommonChartsEcharts));
       BurnoutPic.setOption(this.state.option, true);
   }
@@ -257,4 +260,9 @@ class Xmxq extends Component {
   }
 }
 
-export default Xmxq;
+export default Connect({
+  _id: 'xmxq',
+  _component: Xmxq,
+  _headerBackUrls: '/xmsx', //头部回退按钮地址
+  _headerTitleSets: '项目详情', //头部标题内容
+});

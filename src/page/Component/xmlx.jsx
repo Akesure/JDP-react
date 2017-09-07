@@ -3,6 +3,7 @@ import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
 import CommonLists from './widget/commonLists';
+import Connect from './connect/template';
 
 class Xmlx extends Component {
   constructor(props, context) {
@@ -10,7 +11,7 @@ class Xmlx extends Component {
 
     this.state = {
       configs: {
-        type: 'listNav',
+        type: 'xmlx',
         list: [
           {
             to: '/xmlx/detail/lxfx',
@@ -40,4 +41,9 @@ class Xmlx extends Component {
   }
 }
 
-export default Xmlx;
+export default Connect({
+  _id: 'xmlx',
+  _component: Xmlx,
+  _headerBackUrls: '／', //头部回退按钮地址
+  _headerTitleSets: '项目类型', //头部标题内容
+});

@@ -3,6 +3,7 @@ import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
 import CommonCharts from './widget/commonCharts';
+import Connect from './connect/template';
 
 class Gzlxq extends Component {
   constructor(props, context) {
@@ -140,4 +141,9 @@ class Gzlxq extends Component {
   }
 }
 
-export default Gzlxq;
+export default Connect({
+  _id: 'gzlxq',
+  _component: Gzlxq,
+  _headerBackUrls: '/gzl', //头部回退按钮地址
+  _headerTitleSets: '工作量类型分析', //头部标题内容
+});

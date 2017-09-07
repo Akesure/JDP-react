@@ -5,6 +5,7 @@ import { History, Link } from 'react-router';
 // import { is, fromJS} from 'immutable';
 // import {Tool} from '../Config/Tool';
 // import {Header,template} from './common/mixin';
+import Connect from './connect/template';
 import CommonLists from './widget/commonLists';
 
 class Main extends Component {
@@ -48,6 +49,10 @@ class Main extends Component {
       }
     }
 
+    componentWillMount() {
+
+    }
+
     render() {
         return (
           <div className="main">
@@ -60,4 +65,9 @@ class Main extends Component {
 
 }
 
-export default Main;
+export default Connect({
+  _id: 'main',
+  _component: Main,
+  _headerBackUrls: '／', //头部回退按钮地址
+  _headerTitleSets: '首页', //头部标题内容
+});

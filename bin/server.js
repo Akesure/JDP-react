@@ -42,5 +42,5 @@ app.get('/dist/html', (req, res) => {
 })
 
 app.listen(3000, () => {
-  console.log('======Jira React service opened======');
+  console.log('========================>Jira React service opened');
 })

@@ -3,6 +3,7 @@ import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
 import CommonCharts from './widget/commonCharts';
+import Connect from './connect/template';
 
 class Lxxq extends Component {
   constructor(props, context) {
@@ -157,4 +158,9 @@ class Lxxq extends Component {
   }
 }
 
-export default Lxxq;
+export default Connect({
+  _id: 'lxxq',
+  _component: Lxxq,
+  _headerBackUrls: '/xmlx', //头部回退按钮地址
+  _headerTitleSets: '项目类型分析', //头部标题内容
+});

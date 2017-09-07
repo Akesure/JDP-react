@@ -3,6 +3,7 @@ import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
 import CommonCharts from './widget/commonCharts';
+import Connect from './connect/template';
 
 class Xmjd extends Component {
   constructor(props, context) {
@@ -101,4 +102,9 @@ class Xmjd extends Component {
   }
 }
 
-export default Xmjd;
+export default Connect({
+  _id: 'xmjd',
+  _component: Xmjd,
+  _headerBackUrls: '／', //头部回退按钮地址
+  _headerTitleSets: '项目阶段分析', //头部标题内容
+});

@@ -3,6 +3,7 @@ import pureRender from 'pure-render-decorator';
 import { History, Link } from 'react-router';
 
 import CommonLists from './widget/commonLists';
+import Connect from './connect/template';
 
 class Lxxx extends Component {
   constructor(props, context) {
@@ -10,17 +11,19 @@ class Lxxx extends Component {
 
     this.state = {
       configs : {
-        type : 'listNav',
-        list : []
+        type : 'lxxx',
+        list : [],
+        touch: true
       }
     }
   }
 
   renderCommonLists() {
+    // console.log({...this.props});
     return (
       <div className="main">
         <div className="nav-list">
-          <CommonLists configs={this.state.configs}></CommonLists>
+          <CommonLists {...this.props} configs={this.state.configs}></CommonLists>
         </div>
       </div>
     )
@@ -363,29 +366,33 @@ class Lxxx extends Component {
 
       this.setState({
         configs : {
-          type : 'listNav',
+          type : 'lxxx',
           list : arr.map((v, i) => {
             return {
+              choiceId: v.centerId,
               text: v.centerName,
               to: '/xmsx/option/1/' + v.centerId + '?centerName=' + v.centerName + '&id=' + id
             }
-          })
+          }),
+          touch : true
         }
       })
     } else {
-      this.state.configs.type = 'listNav2';
+      this.state.configs.type = 'lxxx';
       arr = Object.keys(arr).map(function(item) {
         return arr[item];
       });
       this.setState({
         configs : {
-          type : 'listNav2',
+          type : 'lxxx',
           list : arr.map((v, i) => {
             return {
+              choiceId: v[Object.keys(v)[0]],
               text: v[Object.keys(v)[1]],
               to: '/xmsx?id=' + id + '&text='+ v[Object.keys(v)[1]] +'&choiceId=' + v[Object.keys(v)[0]]
             }
-          })
+          }),
+          touch : true
         }
       })
     }
@@ -397,4 +404,8 @@ class Lxxx extends Component {
   }
 }
 
-export default Lxxx;
+export default Connect({
+  _id: 'lxxx',
+  _component: Lxxx,
+  _headerBackUrls: '/xmsx', //头部回退按钮地址
+});

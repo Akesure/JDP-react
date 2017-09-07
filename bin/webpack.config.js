@@ -44,15 +44,20 @@ let entry = {
     return entry;
 })(_filePath);
 
-module.exports = {
-	devtool: 'eval-source-map',
-	entry: entry,
-	output: {
+let outputFn = () => {
+	console.log('========================>Webpack output files now')
+	return {
 		filename : "js/[name].[hash:16].js",
     chunkFilename: "js/Component/[name].[chunkhash:5].min.js",
 		path : path.resolve(__dirname , "..", "dist"),  //编译到当前目录
 		publicPath : "/dist"  //编译好的文件，在服务器的路径,这是静态资源引用路径
-	},
+	}
+}
+
+module.exports = {
+	devtool: 'eval-source-map',
+	entry: entry,
+	output: outputFn(),
 	module: {
 		rules: [
 			{
