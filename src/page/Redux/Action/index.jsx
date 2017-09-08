@@ -1,3 +1,4 @@
+export const HTTP_REQUERT = 'HTTP_REQUERT';
 export const HEADER_TITLE_SETS = 'HEADER_TITLE_SETS';
 export const HEADER_BACK_URLS = 'HEADER_BACK_URLS';
 export const LIST_SELECT_TO_STRINGS = 'LIST_SELECT_TO_STRINGS';
@@ -10,6 +11,15 @@ export const LIST_FILTER_RISK = 'LIST_FILTER_RISK';
 export const LIST_FILTER_PROJECT = 'LIST_FILTER_PROJECT';
 export const ADDUP_CHOICE_TEXT = 'ADDUP_CHOICE_TEXT';
 export const DETAIL_SEARCH_RESULT = 'DETAIL_SEARCH_RESULT';
+
+//网络请求动作
+export const httpRequest = optionjson => {
+  return {
+    type: HTTP_REQUERT,
+    optionjson
+  }
+}
+
 //头部标题内容动作
 export const headerTitleSets = pathjson => {
   return {

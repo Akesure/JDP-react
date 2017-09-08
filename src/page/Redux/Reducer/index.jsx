@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 
-import {HEADER_TITLE_SETS, HEADER_BACK_URLS, LIST_SELECT_TO_STRINGS, LIST_FILTER_CENTER, LIST_FILTER_DEPARTMENT,
+import {HTTP_REQUERT, HEADER_TITLE_SETS, HEADER_BACK_URLS, LIST_SELECT_TO_STRINGS, LIST_FILTER_CENTER, LIST_FILTER_DEPARTMENT,
 LIST_INIT_DEPART_MENTS, LIST_FILTER_TYPE, LIST_FILTER_STATE, LIST_FILTER_RISK, LIST_FILTER_PROJECT, ADDUP_CHOICE_TEXT,
 DETAIL_SEARCH_RESULT} from '../Action';
 
@@ -10,6 +10,20 @@ let defaultState = Immutable.fromJS({data: {
     ]
   }
 }, isFetch: false, isOnce: true}).toJS();
+
+//网络拉取
+export const httpModule = (state = defaultState, action = {}) => {
+  let setState = {};
+  switch(action.type){
+    case HTTP_REQUERT:
+      setState = state.data?Object.assign({}, state.data, action.optionjson):action.optionjson;
+      return setState
+    break;
+
+    default:
+      return state;
+  }
+}
 
 //头部状态与返回设置
 export const headerModule = (state = defaultState, action = {}) => {

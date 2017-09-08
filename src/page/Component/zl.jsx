@@ -6,6 +6,8 @@ import Connect from './connect/template';
 
 import CommonCharts from './widget/commonCharts';
 
+import * as Http from '../Widget/http';
+
 class Zl extends Component {
   constructor(props, context) {
     super(props, context);
@@ -14,11 +16,12 @@ class Zl extends Component {
       configs:{
         showDMW:false,//是否展示图表的月/周/日
         topTitles:['月份','规划项目数量','部门内部项目数量','合计'],//表格上面头部
-        daLists:[{title:'2017/7',data:[6,6,6]},//表格title为左侧头部
-        {title:'2017/8',data:[6,6,6]},
-        {title:'2017/9',data:[6,6,6]},
-        {title:'2017/10',data:[6,6,6]},
-        {title:'总数',data:[6,6,6]}]
+        // daLists:[{title:'2017/7',data:[6,6,6]},//表格title为左侧头部
+        // {title:'2017/8',data:[6,6,6]},
+        // {title:'2017/9',data:[6,6,6]},
+        // {title:'2017/10',data:[6,6,6]},
+        // {title:'总数',data:[6,6,6]}]
+        daLists: []
       },
       option:{
         grid:{
@@ -126,13 +129,99 @@ class Zl extends Component {
                 "plan": 20,
                 "section": 20
             }
-        }]
+        }],
+        _this = this;
 
-        data.forEach((item, index) => {
-          monthData.push(item.month);
-          planData.push(item.data.plan);
-          sectionData.push(item.data.section);
+
+        //封装总览fetch网络拉取
+        Http.http_get('/jira/total/table', {
+          "mode": 'cors',
+          "Content-Type": "application/json",
+          "params": {
+            id: 'xdsjk13',
+            cookie: 'sdfssn1'
+          }
+        }).then((json) => {
+          //表格
+          let jsonData = json.data.map(item => {
+            let array = item.lists;
+            array = [...array, array[0]+array[1]];
+            return {'title': item.name, 'data': array}
+          })
+          let tempState = {};
+          tempState.state = _this.state;
+          tempState.state.configs.daLists = jsonData;
+          _this.setState(Object.assign({}, tempState.state));
+
+
+          //图形
+          json.data.map(item => {
+            return {
+              'month': item.name,
+              'data': {
+                "plan": item.lists[0],
+                "section": item.lists[1]
+              }
+            }
+          }).forEach((item, index) => {
+            monthData.push(item.month);
+            planData.push(item.data.plan);
+            sectionData.push(item.data.section);
+          })
+        }).catch(error => {
+          console.log(error)
         })
+        // console.log(JSON.stringify({
+        //   id: 'xdsjk13',
+        //   cookie: 'sdfssn1'
+        // }))
+        //总览fetch网络拉取
+        // fetch('http://10.112.170.139:9090/mock/59880fce588f7c09fde7578b/jira/total/table?id=xdsjk13&cookie=sdfssn1',{
+          // "mode": 'cors',
+          // "method":'post',
+          // "Content-Type": "application/json",
+          // "body":JSON.stringify({
+          //   id: 'xdsjk13',
+          //   cookie: 'sdfssn1'
+          // })
+        // }).then(response => {
+        //   if(response.ok) {
+        //     response.json().then(json => {
+        //       // console.log(json)
+        //
+        //       //表格
+        //       let jsonData = json.data.map(item => {
+        //         let array = item.lists;
+        //         array = [...array, array[0]+array[1]];
+        //         return {'title': item.name, 'data': array}
+        //       })
+        //       let tempState = {};
+        //       tempState.state = _this.state;
+        //       tempState.state.configs.daLists = jsonData;
+        //       _this.setState(Object.assign({}, tempState.state));
+        //
+        //
+        //       //图形
+        //       json.data.map(item => {
+        //         return {
+        //           'month': item.name,
+        //           'data': {
+        //             "plan": item.lists[0],
+        //             "section": item.lists[1]
+        //           }
+        //         }
+        //       }).forEach((item, index) => {
+        //         monthData.push(item.month);
+        //         planData.push(item.data.plan);
+        //         sectionData.push(item.data.section);
+        //       })
+        //     })
+        //   } else {
+        //     console.log("status", response.status);
+        //   }
+        // }).catch(error => {
+        //   console.log(error)
+        // })
 
       let modifyOption = {
         xAxis: [
